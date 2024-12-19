@@ -25,6 +25,7 @@ require('lazy').setup {
   require 'plugins/aesthetics',
   require 'plugins/colors',
   require 'plugins/treesitter',
+  require 'plugins/statusline',
 
   -- require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.indent_line',
