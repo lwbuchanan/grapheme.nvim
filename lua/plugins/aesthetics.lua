@@ -1,12 +1,12 @@
 return {
   { -- Transparency
     'xiyaowong/transparent.nvim',
-    priority = 1000,
-    lazy = false,
-    init = function()
-      vim.g.transparent_enabled = true
-      vim.keymap.set('n', '<leader>tt', require('transparent').toggle, { desc = '[T]oggle [T]ransparency' })
-    end,
+    --priority = 1000,
+    --lazy = false,
+    --init = function()
+    --  vim.g.transparent_enabled = false
+    --  vim.keymap.set('n', '<leader>to', require('transparent').toggle, { desc = '[T]oggle [O]pacity' })
+    --end,
   },
 
   { -- Highlight todo, notes, etc in comments
@@ -22,31 +22,32 @@ return {
       'echasnovski/mini.icons',
       'nvim-lua/plenary.nvim',
     },
+
     config = function()
-      local label = {
-        --' ██████╗ ██████╗  █████╗ ██████╗ ██╗  ██╗███████╗███╗   ███╗███████╗   ███╗   ██╗██╗   ██╗██╗███╗   ███╗',
-        --'██╔════╝ ██╔══██╗██╔══██╗██╔══██╗██║  ██║██╔════╝████╗ ████║██╔════╝   ████╗  ██║██║   ██║██║████╗ ████║',
-        --'██║  ███╗██████╔╝███████║██████╔╝███████║█████╗  ██╔████╔██║█████╗     ██╔██╗ ██║██║   ██║██║██╔████╔██║',
-        --'██║   ██║██╔══██╗██╔══██║██╔═══╝ ██╔══██║██╔══╝  ██║╚██╔╝██║██╔══╝     ██║╚██╗██║╚██╗ ██╔╝██║██║╚██╔╝██║',
-        --'╚██████╔╝██║  ██║██║  ██║██║     ██║  ██║███████╗██║ ╚═╝ ██║███████╗██╗██║ ╚████║ ╚████╔╝ ██║██║ ╚═╝ ██║',
-        --' ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝╚══════╝╚═╝╚═╝  ╚═══╝  ╚═══╝  ╚═╝╚═╝     ╚═╝',
-      }
-      local label2 = {
-        [[ ]],
-        [[ ]],
-        [[                            /\ \                                  ]],
-        [[   __   _ __    __     _____\ \ \___      __    ___ ___      __   ]],
-        [[ /'_ `\/\`'__\/'__`\  /\ '__`\ \  _ `\  /'__`\/' __` __`\  /'__`\ ]],
-        [[/\ \L\ \ \ \//\ \L\.\_\ \ \L\ \ \ \ \ \/\  __//\ \/\ \/\ \/\  __/ ]],
-        [[\ \____ \ \_\\ \__/.\_\\ \ ,__/\ \_\ \_\ \____\ \_\ \_\ \_\ \____\]],
-        [[ \/___L\ \/_/ \/__/\/_/ \ \ \/  \/_/\/_/\/____/\/_/\/_/\/_/\/____/]],
-        [[   /\____/               \ \_\                                    ]],
-        [[   \_/__/                 \/_/                                    ]],
-      }
+      local logo = [[
+
+ ██████╗ ██████╗  █████╗ ██████╗ ██╗  ██╗███████╗███╗   ███╗███████╗
+██╔════╝ ██╔══██╗██╔══██╗██╔══██╗██║  ██║██╔════╝████╗ ████║██╔════╝
+██║  ███╗██████╔╝███████║██████╔╝███████║█████╗  ██╔████╔██║█████╗  
+██║   ██║██╔══██╗██╔══██║██╔═══╝ ██╔══██║██╔══╝  ██║╚██╔╝██║██╔══╝  
+╚██████╔╝██║  ██║██║  ██║██║     ██║  ██║███████╗██║ ╚═╝ ██║███████╗
+ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝╚══════╝
+      ]]
       local alpha = require 'alpha'
-      local thetacustom = require 'alpha.themes.theta'
-      thetacustom.header.val = label2
-      alpha.setup(thetacustom.config)
+      local dashboard = require 'alpha.themes.dashboard'
+      local thetac = require 'alpha.themes.theta'
+      thetac.header.val = vim.split(logo, '\n')
+      thetac.buttons.val = {
+        { type = 'text', val = 'Quick links', opts = { hl = 'SpecialComment', position = 'center' } },
+        { type = 'padding', val = 1 },
+        dashboard.button('e', '  New file', '<cmd>ene<CR>'),
+        dashboard.button('SPC s f', '󰈞  Search files'),
+        dashboard.button('SPC s g', '󰊄  Search with grep'),
+        dashboard.button('c', '  Configuration', '<cmd>cd ~/.config/grapheme.nvim<CR>'),
+        dashboard.button('u', '  Update plugins', '<cmd>Lazy sync<CR>'),
+        dashboard.button('q', '󰅚  Quit', '<cmd>qa<CR>'),
+      }
+      alpha.setup(thetac.config)
     end,
   },
 }

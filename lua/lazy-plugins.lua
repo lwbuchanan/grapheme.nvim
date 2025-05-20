@@ -15,9 +15,11 @@ require('lazy').setup {
   -- Navigation
   require 'plugins/which-key',
   require 'plugins/telescope',
+  require 'plugins/nvim-tree',
 
   -- LSP / Formatting / Completion
   require 'plugins/lsp',
+  require 'plugins/diagnostics',
   require 'plugins/autoformat',
   require 'plugins/autocompletion',
 
